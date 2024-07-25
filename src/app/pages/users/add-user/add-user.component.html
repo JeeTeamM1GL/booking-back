@@ -11,32 +11,32 @@
     </nz-page-header>
     <br>
     
-    <form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="submitForm()">
-        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24}" >
-            <div nz-col nzSpan="12" >
+    <form nz-form nzLayout="vertical" style="width: 100%;" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 , xl : 24 , xxl : 24}" >
+            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" >
                 <nz-form-item>
                     <nz-form-label
-                      nzFor="lastname"
+                      nzFor="lastName"
                       nzRequired
                     >
                       <span>Nom </span>
                     </nz-form-label>
                     <nz-form-control  nzErrorTip="Veuillez entrer le nom de famille!">
-                      <input nz-input id="lastname" formControlName="lastname" />
+                      <input nz-input id="lastName" formControlName="lastName" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
-            <div nz-col nzSpan="12">
+            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
                 <nz-form-item>
                     <nz-form-label
-                      nzFor="firstname"
+                      nzFor="firstName"
                       nzRequired
                       nzTooltipTitle="Ce champ est optionnel"
                     >
                       <span>Prénom</span>
                     </nz-form-label>
                     <nz-form-control  nzErrorTip="Veuillez entrer le prénom!">
-                      <input nz-input id="firstname" formControlName="firstname" />
+                      <input nz-input id="firstName" formControlName="firstName" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -59,7 +59,7 @@
                     >
                       <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
                         <ng-template #addOnBeforeTemplate>
-                          <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                          <nz-select formControlName="indicatif" class="phone-select">
                             <nz-option nzLabel="+86" nzValue="+86"></nz-option>
                             <nz-option nzLabel="+87" nzValue="+87"></nz-option>
                           </nz-select>
@@ -70,7 +70,7 @@
                 </nz-form-item>
             </div>
         </div>
-        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24}">
+        <!-- <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24}">
             <div nz-col nzSpan="12">
                 <nz-form-item>
                     <nz-form-label  nzFor="password" nzRequired>Mot de passe</nz-form-label>
@@ -101,7 +101,7 @@
                     </nz-form-control>
                 </nz-form-item>
             </div>
-        </div>
+        </div> -->
         
         <nz-form-item nz-row class="register-area">
           <nz-form-control>

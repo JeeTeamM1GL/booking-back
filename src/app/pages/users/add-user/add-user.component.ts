@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
@@ -17,6 +17,8 @@ import {
 } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { Router } from '@angular/router';
+import { User } from '../../../interfaces/interfaces';
 
 
 @Component({
@@ -26,17 +28,53 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
   templateUrl: './add-user.component.html',
   styleUrl: './add-user.component.scss'
 })
-export class AddUserComponent {
+export class AddUserComponent implements OnInit {
 
   validateForm: FormGroup<{
-    firstname: FormControl<string>;
-    lastname: FormControl<string>;
+    firstName: FormControl<string>;
+    lastName: FormControl<string>;
     email: FormControl<string>;
     password: FormControl<string>;
-    checkPassword: FormControl<string>;
-    phoneNumberPrefix: FormControl<'+86' | '+87'>;
+    //checkPassword: FormControl<string>;
+    indicatif: FormControl<string>;
     phoneNumber: FormControl<string>;
   }>;
+
+  record : User= {} ;
+  operation : string = "";
+
+  constructor(
+    private fb: NonNullableFormBuilder,
+    private router : Router
+  ) {
+    this.validateForm = this.fb.group({
+      email: ['', [Validators.email, Validators.required]],
+      password: ['', [Validators.required]],
+      //checkPassword: ['', [Validators.required, this.confirmationValidator]],
+      lastName: ['', [Validators.required]],
+      firstName: ['', [Validators.required]],
+      indicatif: ['' , Validators.required],
+      phoneNumber: ['', [Validators.required]]
+    });
+  }
+
+  ngOnInit(): void {
+    // const navigation = this.router.getCurrentNavigation();
+    // const state = navigation?.extras?.state;
+    const state : any = history.state;
+    this.operation = state?.operation;
+    this.record = state?.record as User;
+    this.validateForm.patchValue({
+      lastName : this.record?.lastName,
+      firstName : this.record?.firstName,
+      email : this.record?.email,
+      indicatif : this.record?.telephone?.indicatif,  
+      phoneNumber : this.record?.telephone?.number
+    });
+    
+    //console.log(state);
+  }
+
   onBack(): void {
     console.log('onBack');
   }
@@ -63,20 +101,10 @@ export class AddUserComponent {
     }
   }
 
-  updateConfirmValidator(): void {
-    /** wait for refresh value */
-    Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
-  }
+  // updateConfirmValidator(): void {
+  //   /** wait for refresh value */
+  //   Promise.resolve().then(() => this.validateForm.controls.checkPassword.updateValueAndValidity());
+  // }
 
-  constructor(private fb: NonNullableFormBuilder) {
-    this.validateForm = this.fb.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required]],
-      checkPassword: ['', [Validators.required, this.confirmationValidator]],
-      lastname: ['', [Validators.required]],
-      firstname: ['', [Validators.required]],
-      phoneNumberPrefix: '+86' as '+86' | '+87',
-      phoneNumber: ['', [Validators.required]]
-    });
-  }
+  
 }

@@ -7,8 +7,16 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzFlexModule } from 'ng-zorro-antd/flex';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+
 
 import { Router } from '@angular/router';
+import { User } from '../../interfaces/interfaces';
+import { formatDate } from '../../utils/helpers';
 
 interface Person {
   key: string;
@@ -20,7 +28,7 @@ interface Person {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [NzCardModule , NzTableModule , NzCheckboxModule, NzPaginationModule , NzDividerModule, NzButtonModule , NzPopconfirmModule],
+  imports: [NzCardModule , NzTableModule , NzCheckboxModule, NzTypographyModule, NzPaginationModule , NzDividerModule, NzButtonModule , NzPopconfirmModule,NzFlexModule,NzInputModule, NzIconModule,NzSpaceModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -29,25 +37,19 @@ export class UsersComponent implements OnInit {
     private router : Router,
     private nzMessageService: NzMessageService
   ){}
-  listOfData: Person[] = [
+  dataSource: User[] = [
     {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
+      firstName: 'John',
+      lastName : 'Brown',
+      email: 'john@gmail.com',
+      createdAt : new Date()
     },
     {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
+      firstName: 'Toto',
+      lastName : 'NDIAYE',
+      email: 'toto@gmail.com',
+      createdAt : new Date()
     },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    }
   ];
   ngOnInit(): void {
     
@@ -57,12 +59,43 @@ export class UsersComponent implements OnInit {
     this.router.navigateByUrl(route);
   }
 
+  onAdd() {
+    this.router.navigateByUrl("/myspace/users/add-user",{
+      state : {
+        operation : "add",
+        record : null
+      }
+    });
+  }
+
+  onEdit(record : User) {
+    //console.log(record)
+    this.router.navigateByUrl("/myspace/users/add-user",{
+      state : {
+        operation : "update",
+        record : record
+      }
+    });
+  }
+
+  onDelete() {
+    this.router.navigateByUrl("/myspace/users/add-user");
+  }
+
+  onDetails() {
+    this.router.navigateByUrl("/myspace/users/add-user");
+  }
+
   cancel(): void {
     this.nzMessageService.info('click cancel');
   }
 
   confirm(): void {
     this.nzMessageService.info('click confirm');
+  }
+
+  _formatDate(record : any){
+    return formatDate(record);
   }
 
   

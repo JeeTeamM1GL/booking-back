@@ -10,6 +10,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
+import { getBreadCrumbLabel } from '../utils/helpers';
 
 @Component({
   selector: 'app-layout',
@@ -21,10 +22,10 @@ import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 export class LayoutComponent implements OnInit {
   isCollapsed = false;
   currentSelectedMenuItemKey = "home";
-  screenWidth =0;
   isDark = false;
   breabcrumbItems : any[] = [];
   pathName = "";
+  screenWidth : number = window.innerWidth;
   
   constructor(
     private router : Router
@@ -47,13 +48,13 @@ export class LayoutComponent implements OnInit {
                     link+=`/${element}`;
                     if (index === splitLocation.length -1) {
                         breads.push({
-                            title : element,
+                            title : getBreadCrumbLabel(element),
                             isLink : false,
                             link : link
                         })
                     }else{
                         breads.push({
-                            title : element,
+                            title : getBreadCrumbLabel(element),
                             isLink : true,
                             link : link
                         })

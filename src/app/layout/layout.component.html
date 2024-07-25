@@ -41,7 +41,7 @@
       </ul>
     </nz-sider>
     
-    <nz-layout  >
+    <nz-layout>
       <nz-header [ngStyle]="{'background-color':'rgba(255,255,255, 0.7)'}" >
         <div  [ngStyle]="{'display':'flex','justify-content':'center','align-items':'center','width' : isCollapsed ? '6%' : '25%','transition' : 'all ease-in 0.2s'}" >
             <!-- <h3>LOGO</h3> -->
@@ -102,7 +102,7 @@
         
         
       </nz-header>
-      <nz-content>
+      <nz-content [ngStyle]="{'margin-left': screenWidth > 992  ? (isCollapsed ? '6%' : '20%'): '0px' }" >
         <nz-breadcrumb>
             <!-- <nz-breadcrumb-item>
                 <span>
