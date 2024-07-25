@@ -1,0 +1,112 @@
+<nz-card>
+    <nz-page-header nzBackIcon [nzGhost]="false" style="padding: 0px;" >
+        <nz-page-header-title>Ajout Utilisateur</nz-page-header-title>
+        <!-- <nz-page-header-subtitle>Ajout d'un utilisateur</nz-page-header-subtitle> -->
+        <nz-page-header-extra>
+          <nz-space>
+            <button *nzSpaceItem nz-button>Operation</button>
+            <button *nzSpaceItem nz-button nzType="primary">Primary</button>
+          </nz-space>
+        </nz-page-header-extra>
+    </nz-page-header>
+    <br>
+    
+    <form nz-form nzLayout="vertical" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24}" >
+            <div nz-col nzSpan="12" >
+                <nz-form-item>
+                    <nz-form-label
+                      nzFor="lastname"
+                      nzRequired
+                    >
+                      <span>Nom </span>
+                    </nz-form-label>
+                    <nz-form-control  nzErrorTip="Veuillez entrer le nom de famille!">
+                      <input nz-input id="lastname" formControlName="lastname" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label
+                      nzFor="firstname"
+                      nzRequired
+                      nzTooltipTitle="Ce champ est optionnel"
+                    >
+                      <span>Prénom</span>
+                    </nz-form-label>
+                    <nz-form-control  nzErrorTip="Veuillez entrer le prénom!">
+                      <input nz-input id="firstname" formControlName="firstname" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24}">
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label  nzRequired nzFor="email">E-mail</nz-form-label>
+                    <nz-form-control  nzErrorTip="L'email entré n'est pas valide!">
+                      <input nz-input formControlName="email" id="email" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label  nzFor="phoneNumber" nzRequired>Numéro de téléphone</nz-form-label>
+                    <nz-form-control
+                      [nzValidateStatus]="validateForm.controls['phoneNumber']"
+                      nzErrorTip="Ce champ est obligatoire!"
+                    >
+                      <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+                        <ng-template #addOnBeforeTemplate>
+                          <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+                            <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+                            <nz-option nzLabel="+87" nzValue="+87"></nz-option>
+                          </nz-select>
+                        </ng-template>
+                        <input formControlName="phoneNumber" id="'phoneNumber'" nz-input />
+                      </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24}">
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label  nzFor="password" nzRequired>Mot de passe</nz-form-label>
+                    <nz-form-control  nzErrorTip="Ce champ est obligatoire!">
+                      <input
+                        nz-input
+                        type="password"
+                        id="password"
+                        formControlName="password"
+                        (ngModelChange)="updateConfirmValidator()"
+                      />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <div nz-col nzSpan="12">
+                <nz-form-item>
+                    <nz-form-label  nzFor="checkPassword" nzRequired>Confirmation de mot de passe</nz-form-label>
+                    <nz-form-control  [nzErrorTip]="errorTpl">
+                      <input nz-input type="password" formControlName="checkPassword" id="checkPassword" />
+                      <ng-template #errorTpl let-control>
+                        @if (control.errors?.['required']) {
+                          Veuillez svp confirmer le mot de passe!
+                        }
+                        @if (control.errors?.['confirm']) {
+                          Les mots ne passent ne matchent pas!
+                        }
+                      </ng-template>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+        </div>
+        
+        <nz-form-item nz-row class="register-area">
+          <nz-form-control>
+            <button nz-button nzType="primary">Enregistrer</button>
+          </nz-form-control>
+        </nz-form-item>
+    </form>
+</nz-card>

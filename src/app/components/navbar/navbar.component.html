@@ -1,0 +1,12 @@
+<nz-layout >
+    <nz-header nz-flex nzJustify="space-between" nzAlign="center" >
+        <nz-input-group class="search" [nzPrefix]="prefixIconSearch">
+            <input nz-input placeholder="Entrer votre recherche" class="search-input" />
+        </nz-input-group>
+
+        <nz-avatar  nzIcon="user"></nz-avatar>
+    </nz-header>
+    <ng-template #prefixIconSearch>
+        <span nz-icon nzType="search"></span>
+    </ng-template>
+</nz-layout>
