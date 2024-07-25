@@ -23,17 +23,53 @@ export class LayoutComponent implements OnInit {
   currentSelectedMenuItemKey = "home";
   screenWidth =0;
   isDark = false;
-  breabcrumbItems = [];
+  breabcrumbItems : any[] = [];
   pathName = "";
+  
   constructor(
     private router : Router
   ){}
   ngOnInit(): void {
-      const location = this.router.url;
-      const splitLocation = location.split("/");
-      const route = splitLocation[splitLocation.length-1];
-      console.log(route);
+
+      this.router.events.subscribe({
+        next : (value : any)=> {
+          if (value && value !== undefined && value !== null) {
+            const location = value?.url;
+            if (location && location !== undefined && location !== null) {
+              const splitLocation = location.split("/");
+              const route = splitLocation[splitLocation.length-1];
+              //console.log(route)
+
+              let link = "";
+              let breads : any[] = [];
+              splitLocation.forEach((element:any , index : any)=> {
+                if (element !== "") {
+                    link+=`/${element}`;
+                    if (index === splitLocation.length -1) {
+                        breads.push({
+                            title : element,
+                            isLink : false,
+                            link : link
+                        })
+                    }else{
+                        breads.push({
+                            title : element,
+                            isLink : true,
+                            link : link
+                        })
+                    }
+                }
+
+                this.breabcrumbItems = breads
+
+                //console.log(this.breabcrumbItems)
+            })
+            }
+          }
+        }
+      })
   }
+  
 
   navigate(route : string) {
     this.router.navigateByUrl(route);

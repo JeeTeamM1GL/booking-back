@@ -104,20 +104,33 @@
       </nz-header>
       <nz-content>
         <nz-breadcrumb>
-          <nz-breadcrumb-item>
-            <span>
-              <a>
-                <span nz-icon nzType="home"></span>
-              </a>
-            </span>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item>
-            <a>
-              <!-- <span nz-icon nzType="user"></span> -->
-              <span>Application List</span>
-            </a>
-          </nz-breadcrumb-item>
-          <nz-breadcrumb-item>Application</nz-breadcrumb-item>
+            <!-- <nz-breadcrumb-item>
+                <span>
+                <a>
+                    <span nz-icon nzType="home"></span>
+                </a>
+                </span>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>
+                <a>
+                <span>Application List</span>
+                </a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>Application</nz-breadcrumb-item> -->
+          
+            @for (item of breabcrumbItems; track $index) {
+                    @if (item?.isLink) {
+                        <nz-breadcrumb-item>
+                            <span>
+                            <a (click)="navigate(item?.link)">
+                                <span > {{item?.title}} </span>
+                            </a>
+                            </span>
+                        </nz-breadcrumb-item>
+                    }@else {
+                        <nz-breadcrumb-item> {{ item?.title }} </nz-breadcrumb-item>
+                    }
+            }
         </nz-breadcrumb>
         <br/>
         <!-- <div 
