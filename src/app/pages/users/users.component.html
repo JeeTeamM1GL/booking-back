@@ -42,11 +42,8 @@
                           nzType="primary" 
                           nzGhost
                           nzDanger 
-                          nz-popconfirm
-                          nzPopconfirmTitle="Are you sure delete this task?"
-                          nzPopconfirmPlacement="bottom"
-                          (nzOnConfirm)="confirm()"
-                          (nzOnCancel)="cancel()"
+                          
+                          (click)="onDelete(data?.id)"
                       >
                         <span nz-icon nzType="delete"></span>
                       </button>

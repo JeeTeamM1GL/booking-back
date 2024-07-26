@@ -12,39 +12,39 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzModalService , NzModalModule } from 'ng-zorro-antd/modal';
+
 
 
 import { Router } from '@angular/router';
 import { User } from '../../interfaces/interfaces';
 import { formatDate } from '../../utils/helpers';
 
-interface Person {
-  key: string;
-  name: string;
-  age: number;
-  address: string;
-}
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [NzCardModule , NzTableModule , NzCheckboxModule, NzTypographyModule, NzPaginationModule , NzDividerModule, NzButtonModule , NzPopconfirmModule,NzFlexModule,NzInputModule, NzIconModule,NzSpaceModule],
+  imports: [NzCardModule , NzTableModule , NzCheckboxModule, NzTypographyModule, NzPaginationModule , NzDividerModule, NzButtonModule , NzPopconfirmModule,NzFlexModule,NzInputModule, NzIconModule,NzSpaceModule , NzModalModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
 export class UsersComponent implements OnInit {
   constructor(
     private router : Router,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private modal : NzModalService
   ){}
+
   dataSource: User[] = [
     {
+      id : "1",
       firstName: 'John',
       lastName : 'Brown',
       email: 'john@gmail.com',
       createdAt : new Date()
     },
     {
+      id : "2",
       firstName: 'Toto',
       lastName : 'NDIAYE',
       email: 'toto@gmail.com',
@@ -78,21 +78,35 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  onDelete() {
-    this.router.navigateByUrl("/myspace/users/add-user");
+  onDelete(id : any) {
+  
+    this.modal.confirm({
+      nzTitle: 'Voulez-vous supprimer cette ligne ?',
+      nzOkText: 'Oui',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => {
+        console.log(id);
+        this.nzMessageService.success("Cliqué avec succès")
+      },
+      nzCancelText: 'Non',
+      nzOnCancel: () => console.log('Cancel')
+    });
   }
 
-  onDetails() {
-    this.router.navigateByUrl("/myspace/users/add-user");
+  onDetails(record : User) {
+    this.router.navigateByUrl("/myspace/users/add-user",{
+      state : record
+    });
   }
 
-  cancel(): void {
-    this.nzMessageService.info('click cancel');
-  }
+  // cancel(): void {
+  //   this.nzMessageService.info('click cancel');
+  // }
 
-  confirm(): void {
-    this.nzMessageService.info('click confirm');
-  }
+  // confirm(): void {
+  //   this.nzMessageService.info('click confirm');
+  // }
 
   _formatDate(record : any){
     return formatDate(record);
