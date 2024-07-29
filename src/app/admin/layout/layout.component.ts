@@ -10,7 +10,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzBackTopModule } from 'ng-zorro-antd/back-top';
-import { getBreadCrumbLabel } from '../utils/helpers';
+import { getBreadCrumbLabel } from '../../utils/helpers';
 
 @Component({
   selector: 'app-layout',

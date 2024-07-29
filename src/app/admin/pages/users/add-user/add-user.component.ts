@@ -18,7 +18,7 @@ import {
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { Router } from '@angular/router';
-import { User } from '../../../interfaces/interfaces';
+import { User } from '../../../../interfaces/interfaces';
 
 
 @Component({

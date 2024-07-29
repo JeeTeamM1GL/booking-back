@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzGridModule } from 'ng-zorro-antd/grid';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { HotelItemComponent } from '../../components/hotel-item/hotel-item.component';
 
 
@@ -26,7 +26,34 @@ export class HomeComponent {
     },
     {
       title: 'Title 4'
-    }
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
+    {
+      title: 'Title 4'
+    },
   ];
 
   

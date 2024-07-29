@@ -17,8 +17,8 @@ import { NzModalService , NzModalModule } from 'ng-zorro-antd/modal';
 
 
 import { Router } from '@angular/router';
-import { User } from '../../interfaces/interfaces';
-import { formatDate } from '../../utils/helpers';
+import { User } from '../../../interfaces/interfaces';
+import { formatDate } from '../../../utils/helpers';
 
 
 @Component({
