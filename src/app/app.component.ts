@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+import { initializeKeycloak } from './config/keycloak.config';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +14,52 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  
+export class AppComponent implements OnInit {
+
+  constructor(
+    private keycloakService : KeycloakService
+  ){}
+  ngOnInit(): void {
+    console.log(this.keycloakService.isLoggedIn())
+
+    if (this.keycloakService.isLoggedIn()) {
+      this.keycloakService.getToken().then(token => {
+        //console.log('accessToken', token);
+        sessionStorage.setItem("accessToken",token);
+      }).catch(err => console.error('Error getting token:', err));
+
+      // Retrieve the refresh token (if needed)
+      // this.keycloakService.getKeycloakInstance().refreshToken().then(refreshToken => {
+      //   console.log('Refresh Token:', refreshToken);
+      // }).catch(err => console.error('Error getting refresh token:', err));
+
+      // Retrieve the user profile
+      this.keycloakService.loadUserProfile().then(profile => {
+        //console.log('userInfos', profile);
+        sessionStorage.setItem("userInfos",JSON.stringify(profile));
+      }).catch(err => console.error('Error loading user profile:', err));
+    }
+    
+    
+    // .then((loggedIn) => {
+    //   if (loggedIn) {
+    //     // Retrieve the access token
+    //     this.keycloakService.getToken().then(token => {
+    //       console.log('Access Token:', token);
+    //     }).catch(err => console.error('Error getting token:', err));
+
+    //     // Retrieve the refresh token (if needed)
+    //     this.keycloakService.getKeycloakInstance().refreshToken().then(refreshToken => {
+    //       console.log('Refresh Token:', refreshToken);
+    //     }).catch(err => console.error('Error getting refresh token:', err));
+
+    //     // Retrieve the user profile
+    //     this.keycloakService.loadUserProfile().then(profile => {
+    //       console.log('User Profile:', profile);
+    //     }).catch(err => console.error('Error loading user profile:', err));
+    //   } else {
+    //     this.keycloakService.login();
+    //   }
+    // });
+  }
 }

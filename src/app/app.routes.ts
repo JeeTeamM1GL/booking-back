@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/booking/welcome' },
-  { path: 'booking', loadChildren: () => import('./front/main/main.routes').then(m => m.MAIN_ROUTES) },
-  { path: 'admin', loadChildren: () => import('./admin/admin.routes').then(m => m.ADMIN_ROUTES) },
+  { path: '', pathMatch: 'full', redirectTo: '/myspace' },
+  { path: 'myspace', loadChildren: () => import('./layout/layout.routes').then(m => m.LAYOUT_ROUTES) },
 ];
