@@ -1,0 +1,66 @@
+<nz-card>
+    <h3 nz-typography >Liste des utilisateurs</h3>
+    <div nz-flex [nzVertical]="false" nzJustify="space-between" nzAlign="center" >
+      <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 300px;" >
+        <input type="text" nz-input placeholder="Entrer votre recherche" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <span nz-icon nzType="search"></span>
+      </ng-template>
+
+      <nz-space>
+        <button *nzSpaceItem nz-button nzType="primary" nzGhost (click)="navigate('/myspace/users/add-user')" >Actualiser</button>
+        <button *nzSpaceItem nz-button nzType="primary" (click)="navigate('/myspace/users/add-user')" >Nouveau</button>
+      </nz-space>
+    </div>
+    <br>
+    <nz-table #basicTable [nzData]="dataSource">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénoms</th>
+            <th>Email</th>
+            <th>Date de création</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            @for (data of basicTable.data; track $index) {
+                <tr >
+                    <td>{{ data?.lastName }}</td>
+                    <td>{{ data?.firstName }}</td>
+                    <td>{{ data?.email }}</td>
+                    <td>{{ _formatDate(data?.createdAt?.toISOString()) }}</td>
+                    <td>
+                      <nz-space>
+                        <button *nzSpaceItem nz-button nzType="primary" (click)="onEdit(data)"  nzGhost >
+                          <span nz-icon nzType="edit"></span>
+                        </button>
+                        <button 
+                          *nzSpaceItem 
+                          nz-button 
+                          nzType="primary" 
+                          nzGhost
+                          nzDanger 
+                          
+                          (click)="onDelete(data?.id)"
+                      >
+                        <span nz-icon nzType="delete"></span>
+                      </button>
+                      </nz-space>
+                      <!-- <nz-divider nzType="vertical"></nz-divider>
+                      <a
+                        nz-popconfirm
+                        nzPopconfirmTitle="Are you sure delete this task?"
+                        nzPopconfirmPlacement="bottom"
+                        (nzOnConfirm)="confirm()"
+                        (nzOnCancel)="cancel()"
+                      >
+                        Delete
+                      </a> -->
+                    </td>
+                </tr>
+            }
+        </tbody>
+      </nz-table>
+</nz-card>

@@ -1,0 +1,86 @@
+<nz-card>
+    <h3 nz-typography >Liste des hôtels</h3>
+    <div nz-flex [nzVertical]="false" nzJustify="space-between" nzAlign="center" >
+      <nz-input-group [nzPrefix]="suffixIconSearch" style="width: 300px;" >
+        <input type="text" nz-input placeholder="Entrer votre recherche" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <span nz-icon nzType="search"></span>
+      </ng-template>
+
+      <nz-space>
+        <button *nzSpaceItem nz-button nzType="primary" nzGhost (click)="onRefresh()" >Actualiser</button>
+        <button *nzSpaceItem nz-button nzType="primary" (click)="onAdd()" >Nouveau</button>
+      </nz-space>
+    </div>
+    <br>
+    <nz-table #basicTable [nzData]="dataSource" [nzLoading]="loading" >
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Adresse</th>
+            <th>Nbre de chambres</th>
+            <th>Date de création</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+            @for (data of basicTable.data; track $index) {
+                <tr >
+                    <td>
+                      <img
+                          nz-image
+                          [nzSrc]="toString(data.cover)"
+                          alt="img" width="50px" height="50px" style="border-radius: 4px;object-fit: cover" >
+                    </td>
+                    <td>{{ data?.name }}</td>
+                    <td>
+                      <p
+                        nz-typography
+                        nzEllipsis
+                        [nzEllipsisRows]="2"
+                      >
+                        {{ data?.description }}
+                      </p>
+                    </td>
+                    <td>{{ data?.location?.address }}</td>
+                    <td>{{ data?.rooms_count }}</td>
+                    <td>{{ _formatDate(data?.createdAt) }}</td>
+                    <td>
+                      <nz-space>
+                        <button *nzSpaceItem nz-button nzType="primary" (click)="onDetails(data?.id)"  nzGhost >
+                          <span nz-icon nzType="eye"></span>
+                        </button>
+                        <button *nzSpaceItem nz-button nzType="primary" (click)="onEdit(data)"  nzGhost >
+                          <span nz-icon nzType="edit"></span>
+                        </button>
+                        <button
+                          *nzSpaceItem
+                          nz-button
+                          nzType="primary"
+                          nzGhost
+                          nzDanger
+
+                          (click)="onDelete(data?.id)"
+                      >
+                        <span nz-icon nzType="delete"></span>
+                      </button>
+                      </nz-space>
+                      <!-- <nz-divider nzType="vertical"></nz-divider>
+                      <a
+                        nz-popconfirm
+                        nzPopconfirmTitle="Are you sure delete this task?"
+                        nzPopconfirmPlacement="bottom"
+                        (nzOnConfirm)="confirm()"
+                        (nzOnCancel)="cancel()"
+                      >
+                        Delete
+                      </a> -->
+                    </td>
+                </tr>
+            }
+        </tbody>
+      </nz-table>
+</nz-card>

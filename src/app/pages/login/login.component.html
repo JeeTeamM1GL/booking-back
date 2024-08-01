@@ -1,0 +1,28 @@
+
+<nz-card class="form-container" >
+    <h2 nz-typography>Connexion</h2>
+    <h5 nz-typography>Veuillez vous authentifier pour continuer</h5>
+
+    <form nz-form nzLayout="vertical" [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="userName"> Entrer votre login</nz-form-label>
+        <nz-form-control nzErrorTip="Veuillez entrer votre login!">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="userName" placeholder="Login" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzRequired nzFor="userName"> Entrer votre mot de passe</nz-form-label>
+        <nz-form-control nzErrorTip="Veuillez entrer votre mot de passe!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="password" placeholder="Mot de passe" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <div nz-flex [nzVertical]="false" nzJustify="flex-end" nzAlign="center" style="margin-bottom: 24px;" >
+        <a>Mot de passe oublié</a>
+      </div>
+      <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Se connecter</button>
+    </form>
+  </nz-card>
