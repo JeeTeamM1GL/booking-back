@@ -85,6 +85,8 @@ export interface Reservation {
   hotel?: Hotel;
   roomId?: string;
   room?: Room;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export enum RoomType {

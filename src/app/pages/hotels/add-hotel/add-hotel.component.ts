@@ -52,7 +52,7 @@ export class AddHotelComponent implements OnInit {
     });
   }
 
- 
+
 
 
   ngOnInit(): void {
@@ -65,17 +65,17 @@ export class AddHotelComponent implements OnInit {
       country : this.record?.location?.country,
       city : this.record?.location?.city,
       description : this.record?.description,
-      gps_coordinate : this.record?.gps_coordinate,  
+      gps_coordinate : this.record?.gps_coordinate,
       rooms_count : this.record?.rooms_count?.toString()
     });
-    
+
     //console.log(state);
 
     console.log(this.cities)
   }
 
 
- 
+
 
   onBack(): void {
     console.log('onBack');
@@ -92,7 +92,7 @@ export class AddHotelComponent implements OnInit {
     }
   }
 
-  
+
   submitForm(): void {
     if (this.validateForm.valid) {
       console.log('submit', this.validateForm.value);

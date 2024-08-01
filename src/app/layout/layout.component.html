@@ -40,7 +40,7 @@
         </li>
       </ul>
     </nz-sider>
-    
+
     <nz-layout>
       <nz-header [ngStyle]="{'background-color':'rgba(255,255,255, 0.7)'}" >
         <div  [ngStyle]="{'display':'flex','justify-content':'center','align-items':'center','width' : isCollapsed ? '6%' : '25%','transition' : 'all ease-in 0.2s'}" >
@@ -63,7 +63,7 @@
           </div>
 
           <div class='header-right' >
-           
+
             <!-- @if (isDark) {
               <button nz-button nzType="text" (click)="changeTheme()" >
                  <span nz-icon nzType="moon" nzTheme="outline" style="font-size: 24px;"></span>
@@ -78,16 +78,16 @@
             <button nz-button nzType="text" >
               <span nz-icon nzType="bell" nzTheme="outline" style="font-size: 24px;" ></span>
             </button>
-            
-  
+
+
             &nbsp;&nbsp;&nbsp;
             <div>
               <!-- <nz-avatar nzIcon="user"></nz-avatar> -->
               <button nz-button nzType="text" nzTrigger="click" nz-dropdown [nzDropdownMenu]="menu">
                 <nz-avatar nzIcon="user" nzSize="small" ></nz-avatar>
-                <span nz-typography > &nbsp; Admin</span>
+                <span nz-typography > &nbsp;{{userInfos["username"] }} </span>
               </button>
-  
+
               <nz-dropdown-menu #menu="nzDropdownMenu">
                 <ul nz-menu>
                   <li nz-menu-item>Mon compte</li>
@@ -99,8 +99,8 @@
           </div>
         </div>
 
-        
-        
+
+
       </nz-header>
       <nz-content [ngStyle]="{'margin-left': screenWidth > 992  ? (isCollapsed ? '6%' : '20%'): '0px' }" >
         <nz-breadcrumb>
@@ -117,7 +117,7 @@
                 </a>
             </nz-breadcrumb-item>
             <nz-breadcrumb-item>Application</nz-breadcrumb-item> -->
-          
+
             @for (item of breabcrumbItems; track $index) {
                     @if (item?.isLink) {
                         <nz-breadcrumb-item>
@@ -133,8 +133,8 @@
             }
         </nz-breadcrumb>
         <br/>
-        <!-- <div 
-          class="inner-content"   
+        <!-- <div
+          class="inner-content"
         >
           <router-outlet></router-outlet>
         </div> -->
@@ -146,4 +146,3 @@
 
   <nz-back-top></nz-back-top>
 
-  

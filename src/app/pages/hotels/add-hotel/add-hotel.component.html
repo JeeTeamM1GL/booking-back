@@ -48,13 +48,24 @@
           </nz-form-control>
         </nz-form-item>
       </div>
+      <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
+        <nz-form-item>
+          <nz-form-label nzFor="rooms_count" nzRequired>
+            <span>Nombre de chambres </span>
+          </nz-form-label>
+          <nz-form-control nzErrorTip="Veuillez entrer le nombre de chambres!">
+            <input nz-input id="rooms_count" formControlName="rooms_count" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
     </div>
     <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
       <div nz-col nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="8">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="email">Pays</nz-form-label>
+          <nz-form-label nzRequired nzFor="country">Pays</nz-form-label>
           <nz-form-control nzErrorTip="L'email entré n'est pas valide!">
-            <input nz-input formControlName="email" id="email" />
+            <input nz-input formControlName="country" id="country"  value="Senegal" />
           </nz-form-control>
         </nz-form-item>
       </div>
@@ -83,9 +94,9 @@
     <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24 }">
         <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
           <nz-form-item>
-            <nz-form-label nzRequired nzFor="email">Pays</nz-form-label>
-            <nz-form-control nzErrorTip="L'email entré n'est pas valide!">
-              <input nz-input formControlName="email" id="email" />
+            <nz-form-label nzRequired nzFor="gps_coordinate">Coordonnées gps</nz-form-label>
+            <nz-form-control nzErrorTip="Veuillez entrer ce champ!">
+              <input nz-input formControlName="gps_coordinate" id="gps_coordinate" />
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -118,7 +129,7 @@
         </div>
       </div>
 
-    
+
     <!-- <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24}">
             <div nz-col nzSpan="12">
                 <nz-form-item>
@@ -154,7 +165,7 @@
 
     <nz-form-item nz-row class="register-area">
       <nz-form-control>
-        <button nz-button nzType="primary">Enregistrer</button>
+        <button nz-button nzType="primary"  >Enregistrer</button>
       </nz-form-control>
     </nz-form-item>
   </form>

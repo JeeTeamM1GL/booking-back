@@ -13,6 +13,7 @@ import { NzBackTopModule } from 'ng-zorro-antd/back-top';
 import { getBreadCrumbLabel } from '../utils/helpers';
 import { KeycloakService } from 'keycloak-angular';
 
+
 @Component({
   selector: 'app-layout',
   standalone: true,
@@ -27,13 +28,14 @@ export class LayoutComponent implements OnInit {
   breabcrumbItems : any[] = [];
   pathName = "";
   screenWidth : number = window.innerWidth;
-  
+  userInfos : any = {};
+
   constructor(
     private router : Router,
     private keycloakService : KeycloakService
   ){}
   ngOnInit(): void {
-
+      this.userInfos= JSON.parse(sessionStorage.getItem("userInfos") as string);
       this.router.events.subscribe({
         next : (value : any)=> {
           if (value && value !== undefined && value !== null) {
@@ -72,7 +74,7 @@ export class LayoutComponent implements OnInit {
         }
       })
   }
-  
+
 
   navigate(route : string) {
     this.router.navigateByUrl(route);

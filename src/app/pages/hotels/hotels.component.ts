@@ -14,6 +14,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzModalService , NzModalModule } from 'ng-zorro-antd/modal';
 import { HotelsService } from '../../services/hotels/hotels.service';
 import { Hotel } from '../../interfaces/interfaces';
@@ -22,7 +23,7 @@ import { Hotel } from '../../interfaces/interfaces';
 @Component({
   selector: 'app-hotels',
   standalone: true,
-  imports: [NzCardModule , NzTableModule , NzCheckboxModule, NzTypographyModule, NzPaginationModule , NzDividerModule, NzButtonModule , NzPopconfirmModule,NzFlexModule,NzInputModule, NzIconModule,NzSpaceModule , NzModalModule],
+  imports: [NzCardModule , NzTableModule , NzCheckboxModule, NzTypographyModule, NzPaginationModule , NzDividerModule, NzButtonModule , NzPopconfirmModule,NzFlexModule,NzInputModule, NzIconModule,NzSpaceModule , NzModalModule , NzImageModule],
   templateUrl: './hotels.component.html',
   styleUrl: './hotels.component.scss'
 })
@@ -36,7 +37,7 @@ export class HotelsComponent implements OnInit {
     private modal : NzModalService,
     private hotelsService : HotelsService
   ){}
-  
+
   ngOnInit(): void {
     this.getHotelsList()
   }
@@ -47,12 +48,18 @@ export class HotelsComponent implements OnInit {
   }
 
 
+
+  toString(word : string | any) {
+      return word as string;
+  }
+
   getHotelsList(){
     this.loading = true;
     this.hotelsService._getHotelsList()
     .subscribe({
       next : (data)=> {
         console.log(data)
+        this.dataSource = data as Hotel[];
       },
       error : (err)=> {
         this.loading=false;
@@ -64,8 +71,11 @@ export class HotelsComponent implements OnInit {
     })
   }
 
+  onRefresh(){
+    this.ngOnInit()
+  }
   onAdd() {
-    this.router.navigateByUrl("/admin/myspace/users/add-user",{
+    this.router.navigateByUrl("/myspace/hotels/add-hotel",{
       state : {
         operation : "add",
         record : null
@@ -75,7 +85,7 @@ export class HotelsComponent implements OnInit {
 
   onEdit(record : Hotel) {
     //console.log(record)
-    this.router.navigateByUrl("/admin/myspace/users/add-user",{
+    this.router.navigateByUrl("/myspace/hotels/add-hotel",{
       state : {
         operation : "update",
         record : record
@@ -84,7 +94,7 @@ export class HotelsComponent implements OnInit {
   }
 
   onDelete(id : any) {
-  
+
     this.modal.confirm({
       nzTitle: 'Voulez-vous supprimer cette ligne ?',
       nzOkText: 'Oui',
@@ -92,16 +102,28 @@ export class HotelsComponent implements OnInit {
       nzOkDanger: true,
       nzOnOk: () => {
         console.log(id);
-        this.nzMessageService.success("Cliqué avec succès")
+        this.hotelsService._deleteHotel(id)
+          .subscribe({
+            next : (data)=> {
+              this.nzMessageService.success("Ligne retirée succès");
+              this.onRefresh();
+            },
+            error : (err)=> {
+              this.nzMessageService.error("Quelque chose s'est mal passée");
+            },
+            complete : () => {
+            },
+          })
+
       },
       nzCancelText: 'Non',
       nzOnCancel: () => console.log('Cancel')
     });
   }
 
-  onDetails(record : Hotel) {
-    this.router.navigateByUrl("/myspace/users/add-user",{
-      state : record
+  onDetails(id : string | undefined) {
+    this.router.navigateByUrl("/myspace/hotels/details-hotel",{
+      state : {id}
     });
   }
 
