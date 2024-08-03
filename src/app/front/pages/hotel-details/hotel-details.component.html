@@ -1,73 +1,49 @@
-<div class="hotel-details-container" >
-    <div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="space-between" >
-        <h2 nz-typography>Hotel 16 étoiles</h2>
+<app-navbar></app-navbar>
+<div class="hotel-details-container" *ngIf="hotel; else loading">
+  <!-- Hotel Information -->
+  <div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="space-between" class="hotel-header">
+    <div>
+      <nz-rate [nzCount]="5"></nz-rate>
+      <h2 nz-typography>{{ hotel.name }}</h2>
+      <div class="hotel-address">
+        <span nz-icon nzType="environment" nzTheme="outline"></span>
+        {{ hotel.location.address }} - {{hotel.location.city}} - {{hotel.location.country}}
+      </div>
+    </div>
+    <span nz-icon nzType="heart"></span>
+  </div>
 
-        <nz-space>
-            <span nz-icon nzType="heart"></span>
+  <div class="description-container">
+    <p nz-typography>
+      {{ hotel.description }}
+    </p>
+  </div>
+  
+  <div class="img-details">
+    <img src="./../../../assets/images/hotel-img.jpg" alt="Hotel Image">
+  </div>
+  
+  <!-- Room Cards -->
+  <div nz-row [nzGutter]="[12, 12]">
+    <ng-container *ngFor="let room of rooms">
+      <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
+        <nz-card nzHoverable class="room-card">
+          <nz-card-meta
+            [nzTitle]="'Chambre ' + room.room_type"
+            [nzDescription]="'Détail: ' + room.description"
+          ></nz-card-meta>
+          <div class="room-info">
+            <p><strong>Type de chambre:</strong> {{ room.room_type }}</p>
+            <p><strong>Capacité:</strong> {{ room.capacity }}</p>
+            <p><strong>Nuitée:</strong> {{ room.price_per_night }} Fcfa</p>
             <button nz-button nzType="primary">Réserver</button>
-        </nz-space>
-
-    </div>
-    <div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="space-between" >
-        <nz-rate [nzCount]="1"></nz-rate>
-
-    </div>
-    <div nz-row [nzGutter]="[12,12]" >
-        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12" >
-            <div class="img-details" >
-                <img src="./../../../assets/images/hotel-img.jpg" alt="">
-            </div>
-        </div>
-        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12" nzXl="12" nzXXl="12" >
-            <div nz-row [nzGutter]="[12,12]" >
-                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzXl="12" nzXXl="12" >
-                    <div class="img-details" >
-                        <img src="./../../../assets/images/hotel-img.jpg" alt="">
-                    </div>
-                </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzXl="12" nzXXl="12" >
-                    <div class="img-details" >
-                        <img src="./../../../assets/images/hotel-img.jpg" alt="">
-                    </div>
-                </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzXl="12" nzXXl="12" >
-                    <div class="img-details" >
-                        <img src="./../../../assets/images/hotel-img.jpg" alt="">
-                    </div>
-                </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="24" nzXl="12" nzXXl="12" >
-                    <div class="img-details" >
-                        <img src="./../../../assets/images/hotel-img.jpg" alt="">
-                    </div>
-                </div>
-
-            </div>
-            
-        </div>
-    </div>
-
-    <br>
-    <div nz-row [nzGutter]="[12,12]" >
-        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="16" nzXl="16" nzXXl="16" >
-            <h2 nz-typography>Room in house</h2>
-            <p
-                nz-typography
-                nzEllipsis 
-                nzExpandable 
-                [nzEllipsisRows]="3"
-            >
-                L'Hôtel Belle Étoile est un charmant établissement situé au cœur d'une ville pittoresque, offrant un mélange parfait de confort moderne et de charme traditionnel. Cet hôtel trois étoiles propose des chambres élégantes et bien équipées, chacune décorée avec goût et dotée de toutes les commodités nécessaires pour un séjour agréable, y compris une connexion Wi-Fi gratuite, la climatisation, et une télévision à écran plat.
-            </p>
-        </div>
-        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="8" nzXl="8" nzXXl="8" >
-            <nz-card>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-            </nz-card>
-        </div>
-    </div>
-
-    
-   
+          </div>
+        </nz-card>
+      </div>
+    </ng-container>
+  </div>
 </div>
+
+<ng-template #loading>
+  <nz-spin nzTip="Loading hotel details..."></nz-spin>
+</ng-template>

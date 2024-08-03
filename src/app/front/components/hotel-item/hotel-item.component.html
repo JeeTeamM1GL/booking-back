@@ -1,26 +1,23 @@
-<div class="hotel-item-container" (click)="navigateToDetails()" >
-    <div class="img-container" >
-        <img src="./../../../assets/images/hotel-img.jpg" alt="">
-        <div class="img-content" >
-            <div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="flex-end" >
-                <div>
-                    <button nz-button nzType="primary" nzShape="circle">
-                        <span nz-icon nzType="heart" nzTheme="outline" style="font-size: 18px;" ></span>
-                    </button>
-                </div>
-            </div>
-        </div>
+<div class="img-container" (click)="navigateToDetails()">
+  <img [src]="item.cover || './../../../assets/images/hotel-img.jpg'" alt="Hotel Image">
+  <div class="img-content">
+    <div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="flex-end">
+      <div>
+        <button nz-button nzType="primary" nzShape="circle">
+          <span nz-icon nzType="heart" nzTheme="outline" style="font-size: 18px;"></span>
+        </button>
+      </div>
     </div>
-    <div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="space-between" >
-        <span nz-typography> Hotel 16 étoiles </span>
-        <nz-rate [nzCount]="1"></nz-rate>
-    </div>
-    <div>
-        <h3 style="color: var(--app-color);" >100.000 CFA</h3>
-    </div>
-    <div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="space-between" >
-        <nz-tag [nzBordered]="false"> 6beds </nz-tag>
-        <nz-tag [nzBordered]="false"> 4 baths </nz-tag>
-        <nz-tag [nzBordered]="false"> 20 kms </nz-tag>
-    </div>
+  </div>
+</div>
+<div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="space-between">
+  <span nz-typography>{{item.name}}</span>
+  <nz-rate [nzCount]="1"></nz-rate>
+</div>
+<div>
+  <h3 style="color: var(--app-color);">{{item.location.country}} - {{item.location.city}} - {{item.location.address}}</h3>
+</div>
+<div nz-flex [nzVertical]="false" nzAlign="center" nzJustify="space-between">
+  <nz-tag [nzBordered]="false">{{ item.rooms_count }} chambres</nz-tag>
+  <nz-tag [nzBordered]="false">{{ item.createdAt }} </nz-tag>
 </div>
